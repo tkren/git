@@ -72,8 +72,8 @@ test_expect_success GETTEXT_LOCALE,PCRE 'log --committer with an ascii pattern o
 	EOF
 	test_write_lines "fifth" >file5 &&
 	git add file5 &&
-	export GIT_COMMITTER_NAME="Ç O Mîtter" &&
-	export GIT_COMMITTER_EMAIL="committer@example.com" &&
+	GIT_COMMITTER_NAME="Ç O Mîtter" GIT_COMMITTER_EMAIL="committer@example.com" &&
+	export GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL &&
 	git -c i18n.commitEncoding=latin1 commit -m thïrd &&
 	git -c i18n.logOutputEncoding=latin1 log -1 --pretty=fuller --color=always --perl-regexp --committer=" O.*" >log &&
 	grep Commit: log >actual.raw &&
