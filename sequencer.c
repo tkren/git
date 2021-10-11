@@ -5773,11 +5773,13 @@ int todo_list_rearrange_squash(struct todo_list *todo_list)
 		unuse_commit_buffer(item->commit, commit_buffer);
 		if (skip_fixupish(subject, &p)) {
 			struct commit *commit2;
+			const char *q;
 
-			for (;;) {
-				while (isspace(*p))
-					p++;
-				if (!skip_fixupish(p, &p))
+			/* ignore fixupish prefixes */
+			for (q = p;; q = p) {
+				while (isspace(*q))
+					q++;
+				if (!skip_fixupish(q, &p))
 					break;
 			}
 
